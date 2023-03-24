@@ -39,4 +39,11 @@ let mutable nombreVar:tipo = valor //Puede cambiar en tiempo de ejecución
 ```
 
 
+## Usos del lenguaje
+-
+-
+-
+
+
+
 
