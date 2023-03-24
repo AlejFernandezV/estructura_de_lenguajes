@@ -117,7 +117,7 @@ Public Class nombreClase
     Public Property Nombre()
 End Class
 ```
-s
+
 ## Usos y campos de acción del lenguaje
 - Desarrollo movil
 - Desarrollo de aplicaciones móviles
