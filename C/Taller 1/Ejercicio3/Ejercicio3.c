@@ -2,130 +2,195 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+#define MAX_ESTUDIANTES 1
+#define MAX_PROGRAMAS 1
 
 typedef struct {
 	int codigo;
-	char nombre [15];
-	char apellido[15];
-	char genero[2];
-} Estudiante;
+	char nombre[30];
+	char apellido[30];
+	char genero;
+} estudiante;
 
 typedef struct{
-	int codigo;
-	char nombre[20];
-	int anio;
-	Estudiante vecEstud[3];
-} Programa;
+	int progCod;
+	char progNombre[30];
+	int progAnio;
+	estudiante vecEstudiantes[MAX_ESTUDIANTES];
+} progAcademico;
 
 typedef struct{
-	int codigoFac;
-	char nombreFac[20];
-	Programa vecProgms[2];
-} Facultad;
+	int facCod;
+	char facNombre[30];
+	progAcademico vecProgramas[MAX_PROGRAMAS];
+} facultad;
 
-void ingresarPrograma(Programa *prmProg){
-	printf("Digite el codigo del programa: ");
-	scanf("%d", &prmProg->codigo);
+void llenarVecEstudiantes(estudiante *vecEstudiantes){
 	
-	printf("Digite el nombre del programa: ");
-	scanf("%s", prmProg->nombre);
-	
-	printf("Digite el anio de creacion del programa: ");
-	scanf("%d", &prmProg->anio);
-	
-	printf("INGRESO DE LOS ESTUDIANTES \n");
-	llenarVector(prmProg->vecEstud);
-}
-	
-void llenarVector(Estudiante *prmVecEst){
-	for(int i=0; i < 3; i++){
-		
+	for(int i=0; i < MAX_ESTUDIANTES; i++){
+		printf("----- ESTUDIANTE #%d -----\n",i+1);
 		do{
-			printf("Digite el codigo del estudiante #%d: ", i+1);
-			scanf("%d", &prmVecEst[i].codigo);		
+			printf("Ingrese el codigo del estudiante: ");
+			scanf("%d", &vecEstudiantes[i].codigo);
 			
-			if(prmVecEst[i].codigo < 0){
-				printf("Error! El codigo es negativo");
+			if(vecEstudiantes[i].codigo < 0){
+				printf("Error! Codigo negativo\n");
 				system("pause");
 				system("cls");
 			}
-			
-		}while(prmVecEst[i].codigo < 0);
+		} while(vecEstudiantes[i].codigo < 0);
 		
+		printf("Ingrese el nombre del estudiante: ");
+		scanf("%s",vecEstudiantes[i].nombre);
 		
-		printf("Digite el nombre del estudiante #%d: ", i+1);
-		scanf("%s", prmVecEst[i].nombre);
-		
-		printf("Digite el apellido del estudiante #%d: ", i+1);
-		scanf("%s", prmVecEst[i].apellido);
+		printf("Ingrese el apellido del estudiante: ");
+		scanf("%s",vecEstudiantes[i].apellido);
 		
 		do{
+			printf("Ingrese el genero del estudiante: ");
+			scanf(" %c", &vecEstudiantes[i].genero);
 			
-			printf("Digite el genero del estudiante #%d: ", i+1);
-			scanf("%s", prmVecEst[i].genero);
+			//strcmp(&vecEstudiantes[i].genero,"f")==1 && strcmp(&vecEstudiantes[i].genero, "m")== 1
 			
-			if(strcmp(&prmVecEst[i].genero, "f") == 1 && strcmp(&prmVecEst[i].genero, "m") == 1){
-				printf("Error! El genero no es m o f\n");
+			if(vecEstudiantes[i].genero!='f' && vecEstudiantes[i].genero!='m'){
+				printf("Error! El genero no es f o m\n");
+				system("pause");
+				system("cls");
+				printf("----- ESTUDIANTE #%d -----\n",i+1);
 			}
-		}while(strcmp(&prmVecEst[i].genero, "f") == 1 && strcmp(&prmVecEst[i].genero, "m") == 1);
-		
+		} while(vecEstudiantes[i].genero!='f' && vecEstudiantes[i].genero!='m');
 		system("cls");
+		
+		
 	}
 }
+
+void imprimirEstudiantes(estudiante *vecEst){
+	for(int i=0; i < MAX_ESTUDIANTES; i++){
+		printf("INFO ESTUDIANTE #%d\n", i+1);
+		printf("CODIGO: %d \n", vecEst[i].codigo);
+		printf("NOMBRE: %s \n", vecEst[i].nombre);
+		printf("APELLIDO: %s \n", vecEst[i].apellido);
+		printf("GENERO: %c \n", vecEst[i].genero);
+		printf("----------------------------------------\n");
+	}
+}
+	
+void llenarProgramas(progAcademico *programa, estudiante vecEstdnts[]){
+	do{
+		printf("Ingrese el codigo del programa: ");
+		scanf("%d", &programa->progCod);
 		
-void ingresarFacultad(Facultad *prmFac){
-	printf("Ingrese el codigo de la facultad: ");
-	scanf("%d", &prmFac->codigoFac);
+		if(programa->progCod < 0){
+			printf("Error! Codigo negativo\n");
+			system("pause");
+			system("cls");
+		}
+	} while(programa->progCod < 0);
+	
+	printf("Ingrese el nombre del programa: ");
+	scanf("%s", programa->progNombre);
+	
+	do{
+		printf("Ingrese el anio de creacion del programa: ");
+		scanf("%d", &programa->progAnio);
+		
+		if(programa->progAnio < 0){
+			printf("Error! Anio negativo\n");
+			system("pause");
+			system("cls");
+		}
+	} while(programa->progAnio < 0);
+	
+	llenarVecEstudiantes(vecEstdnts);
+
+}
+
+void imprimirProgramas(progAcademico *vecProgs){
+	for(int i=0; i < MAX_PROGRAMAS; i++){
+		printf("Informacion del Programa %s\n", vecProgs[i].progNombre);
+		printf("Codigo: %d\n", vecProgs[i].progCod);
+		printf("Anio creacion: %d\n", vecProgs[i].progAnio);
+		printf("------- Informacion de los estudiantes -------\n");
+		imprimirEstudiantes(vecProgs[i].vecEstudiantes);
+	}
+}
+
+void llenarFacultad(facultad *fac){
+	do{
+		printf("Ingrese el codigo de la facultad: ");
+		scanf("%d", &fac->facCod);
+		
+		if(fac->facCod < 0){
+			printf("Error! Codigo negativo\n");
+			system("pause");
+			system("cls");
+		}
+	} while(fac->facCod < 0);
 	
 	printf("Ingrese el nombre de la facultad: ");
-	scanf("%s", prmFac->nombreFac);
+	scanf("%s", fac->facNombre);
 	
-	system("cls");
-	
-	printf("--------- INGRESO DE LOS CURSOS DE LA FACULTAD %c ---------\n", prmFac->nombreFac);
-	
-	for(int i=0; i < 2; i++){
-		printf("CURSO #%d \n", i+1);
-		ingresarCurso(&prmFac->vecProgms[i]);
+	printf("Ingrese los datos de los programas academicos\n");
+	for(int i=0; i < MAX_PROGRAMAS; i++){
+		printf("----- PROGRAMA #%d -----\n",i+1);
+		llenarProgramas(&fac->vecProgramas[i],fac->vecProgramas[i].vecEstudiantes);
 	}
 }
 	
-	void imprimirVector(Estudiante vecEst[]){
-		for(int i=0; i < 3; i++){
-			printf("INFO ESTUDIANTE #%d\n", i+1);
-			printf("CODIGO: %d \n", vecEst[i].codigo);
-			printf("NOMBRE: %s \n", vecEst[i].nombre);
-			printf("APELLIDO: %s \n", vecEst[i].apellido);
-			printf("GENERO: %s \n", vecEst[i].genero);
-			printf("----------------------------------------\n");
+void imprimirFacultad(facultad *fac){
+	printf("------- Informacion facultad %s -------\n",fac->facNombre);
+	printf("\tCODIGO: %d\n",fac->facCod);
+	printf("---------------------------------------\n");
+	imprimirProgramas(fac->vecProgramas);
+}
+	
+int impProgmsAnio(progAcademico *prog){
+	int contProgs = 0;
+	for(int i = 0;i < MAX_PROGRAMAS; i++){
+		if(prog[i].progAnio == 1998){
+			contProgs++;
 		}
 	}
-				
-void imprimirPrograma(Programa *Prog){
-	printf("Informacion del Programa %s\n", Prog->nombre);
-	printf("Codigo: %d\n", Prog->codigo);
-	printf("Anio creacion: %d\n", Prog->anio);
-	printf("------- Informacion de los estudiantes -------\n");
-	imprimirVector(Prog->vecEstud);
+	return contProgs;
 }
-					
-void imprimirFacultad(Facultad *Fac){
-	printf("Informacion de la facultad %s", Fac->nombreFac);
-	printf("Codigo: %d", Fac->codigoFac);
 	
-	for(int i=0; i < 3; i++){
-		imprimirPrograma(&Fac->vecProgms[i]);
+int contarGeneroMasc(estudiante estudiantesPrograma[]) {
+	int cont = 0;
+	for (int i = 0; i < MAX_ESTUDIANTES; i++) {
+		if (estudiantesPrograma[i].genero == 'm') {
+			cont++;
+		}
 	}
+	return cont;
 }
-						
+	
+progAcademico encontrarProg(progAcademico *vec,char *nombre){
+	progAcademico aux;
+	for(int i=0; i< MAX_PROGRAMAS; i++){
+		if(strcmp(vec[i].progNombre, nombre)== 0){
+			aux = vec[i];
+		}
+	}
+	return aux;
+}
+
 int main(int argc, char *argv[]) {
-	
-	Facultad fac;
-	
-	ingresarFacultad(&fac);
-	
+	facultad fac;
+	llenarFacultad(&fac);
 	imprimirFacultad(&fac);
+	char nombreProg[30];
+	
+	int cantProgsAnio = impProgmsAnio(fac.vecProgramas);
+	printf("Cantidad de años que fueron creado en 1998: %d\n",cantProgsAnio);
+	
+	printf("Ingrese el nombre de un programa para contar sus hombres: ");
+	scanf("%s", nombreProg);
+	
+	int cantidadMasc = contarGeneroMasc(encontrarProg(fac.vecProgramas, nombreProg).vecEstudiantes);
+	printf("Cantidad de hombres en el programa %s es: %d\n",nombreProg,cantidadMasc);
+	
+	
 	
 	return 0;
 }
