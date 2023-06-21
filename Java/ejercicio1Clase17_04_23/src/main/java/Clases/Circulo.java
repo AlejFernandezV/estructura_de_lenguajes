@@ -20,9 +20,17 @@ public class Circulo extends Figura {
         return this.area;
     }
     
-    public String imprimirArea(){
-        return "Retornando area circulo:"+getArea();
+    @Override
+    public void area() {
+        System.out.println("Retornando area circulo:"+getArea()); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public void perimetro() {
+        System.out.println("Retornando circunferencia del circulo:"+Math.PI*2*radio); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
     
     
     

@@ -21,8 +21,14 @@ public class Rectangulo extends Figura{
     public double getArea(){
         return this.area;
     }
-    
-    public String imprimirArea(){
-        return "Retornando area rectangulo:"+getArea();
+
+    @Override
+    public void area() {
+        System.out.println("Retornando area rectangulo:"+getArea()); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void perimetro() {
+        System.out.println("Retornando el perimetro del rectangulo:"+((2*alto)+(2*ancho))); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

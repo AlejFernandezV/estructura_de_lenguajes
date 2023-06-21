@@ -1,0 +1,32 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Clases;
+
+/**
+ *
+ * @author USUARIO
+ */
+public class Cuadrado extends Figura{
+    private double lado;
+
+    public Cuadrado(double lado) {
+        this.lado = lado;
+        this.area = Math.pow(lado, 2);
+    }
+    
+    public double getArea(){
+        return this.area;
+    }
+
+    @Override
+    public void area() {
+        System.out.println("Retornando area triangulo:"+getArea()); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void perimetro() {
+        System.out.println("Retornando el perimetro del cuadrado: "+ 4*lado);// Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}

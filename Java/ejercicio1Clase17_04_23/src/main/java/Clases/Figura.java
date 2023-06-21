@@ -8,17 +8,10 @@ package Clases;
  *
  * @author USUARIO
  */
-public class Figura {
+public abstract class Figura {
     protected double area;
 
-    public Figura() {
-    }
-
-    public double getArea() {
-        return area;
-    }
+    public abstract void area();
+    public abstract void perimetro();
     
-    public String imprimirArea(){
-        return "Retornando area figura";
-    }
 }

@@ -13,7 +13,13 @@ import Clases.*;
 public class Ejercicio3Clase14_04_23 {
 
     public static void main(String[] args) {
+        Circulo cir = new Circulo(5);
+        Rectangulo rec = new Rectangulo(3,5);
+        Triangulo tri = new Triangulo(5,8);
         
+        impresionArea(cir);
+        impresionArea(rec);
+        impresionArea(tri);
     }
     
     public static void impresionArea(Figura fig){

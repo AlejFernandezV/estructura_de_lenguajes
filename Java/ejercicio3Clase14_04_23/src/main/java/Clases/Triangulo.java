@@ -23,6 +23,6 @@ public class Triangulo extends Figura{
     }
     
     public String imprimirArea(){
-        return "Retornando area fugura:"+getArea();
+        return "Retornando area triangulo:"+getArea();
     }
 }
